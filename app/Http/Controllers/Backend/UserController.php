@@ -24,7 +24,7 @@ class UserController extends TrinataController
 
 	public function getData()
 	{
-		$model = $this->model->select('users.id','name','email','role')
+		$model = $this->model->select('users.id','users.name','users.email','roles.role')
 			->join('roles','roles.id','=','users.role_id');
 
 		$data = Table::of($model)

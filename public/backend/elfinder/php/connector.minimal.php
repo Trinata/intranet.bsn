@@ -2,6 +2,19 @@
 
 error_reporting(0); // Set E_ALL for debuging
 
+date_default_timezone_set('Asia/Jakarta');
+
+$valid = false;
+if (isset($_GET['token'])) {
+	$token = $_GET['token'];
+	$validToken = sha1(date('Y-m-d'). 'trinata-valid-bsn');
+	if ($token == $validToken) {
+		$valid = true;
+	}
+}
+
+if (!$valid) die('Happy Hacking Bro');
+
 include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'elFinderConnector.class.php';
 include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'elFinder.class.php';
 include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'elFinderVolumeDriver.class.php';
@@ -51,7 +64,17 @@ $opts = array(
 			'path'          => '../files/',                 // path to files (REQUIRED)
 			'URL'           => dirname($_SERVER['PHP_SELF']) . '/../files/', // URL to files (REQUIRED)
 			'uploadDeny'    => array('all'),                // All Mimetypes not allowed to upload
-			'uploadAllow'   => array('image', 'text/plain'),// Mimetype `image` and `text/plain` allowed to upload
+			'uploadAllow'   => array(
+							'image',
+							'application/pdf',
+							'video/mp4',
+							'application/msword',
+							'application/vnd.ms-excel',
+							'application/vnd.ms-powerpoint',
+                			'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                			'application/vnd.ms-powerpoint'
+                			), // Mimetype `image` and `text/plain` allowed to upload
 			'uploadOrder'   => array('deny', 'allow'),      // allowed Mimetype `image` and `text/plain` only
 			'accessControl' => 'access'                     // disable and hide dot starting files (OPTIONAL)
 		)

@@ -31,7 +31,8 @@ class MenuController extends TrinataController
 
     public function parents()
     {
-        $parents = $this->model->whereParentId(null)->orderBy('order')->lists('title','id')->toArray();
+        // $parents = $this->model->whereParentId(null)->orderBy('order')->lists('title','id')->toArray();
+        $parents = $this->model->whereParentId(null)->orderBy('order')->lists('title','id');
 
         return [null => 'This Parent'] + $parents;
     }
